@@ -9,6 +9,9 @@ app.use(cors());
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
+app.get("/", (req, res) => {
+  res.json({ success: true, message: "Server Works" });
+});
 // Store connected clients
 const clients = new Set();
 
@@ -105,6 +108,7 @@ const broadcastNotification = (notification) => {
   });
 };
 
+
 // Example API endpoint to trigger notifications
 app.post("/api/notify", express.json(), (req, res) => {
   const { title, message } = req.body;
@@ -113,6 +117,7 @@ app.post("/api/notify", express.json(), (req, res) => {
 
   res.json({ success: true, message: "Notification sent" });
 });
+
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
