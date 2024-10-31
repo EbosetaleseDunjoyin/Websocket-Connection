@@ -1,4 +1,3 @@
-// server/index.js
 const express = require("express");
 const http = require("http");
 const WebSocket = require("ws");
@@ -13,6 +12,7 @@ const wss = new WebSocket.Server({ server });
 // Store connected clients
 const clients = new Set();
 
+//Ping Pong
 const HEARTBEAT_INTERVAL = 30000;
 
 wss.on("connection", (ws) => {
@@ -22,7 +22,6 @@ wss.on("connection", (ws) => {
     ws.isAlive = true;
   });
 
-  // ... rest of the connection handler
 });
 
 const interval = setInterval(() => {
@@ -40,6 +39,7 @@ const interval = setInterval(() => {
 wss.on("close", () => {
   clearInterval(interval);
 });
+
 // WebSocket connection handler
 wss.on("connection", (ws) => {
   console.log("New client connected");
